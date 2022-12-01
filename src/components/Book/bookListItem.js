@@ -1,4 +1,3 @@
-import React from "react";
 import {
     Image, 
     StyleSheet,
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#E0E0E0',
     },
     image: {
-        height: 40,
+        height: 50,
         width: 40,
         resizeMode: "cover",
     },
