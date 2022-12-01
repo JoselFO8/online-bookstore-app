@@ -35,7 +35,7 @@ export default function BookListItem({book, onClick}) {
         <TouchableOpacity onPress={onClick} >
             <View style={styles.container} >
                 <Image
-                    source={{uri: book.cover}}
+                    source={{uri: book.coverImage}}
                     style={styles.image}
                 />
                 <Text>{book.title}</Text>

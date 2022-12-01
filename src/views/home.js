@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+// import { useQuery } from "react-query"
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import { Text, View, TouchableHighlight, FlatList } from "react-native";
 import BookListItem from "../components/Book/BookListItem";
 
@@ -15,13 +17,26 @@ const BOOK_LIST = [
     },
 ]
 
+// const queryClient = new QueryClient()
+
+const GET_BOOKS = 'GET_BOOKS'
+
+const getBooks = async () => {
+    const response = await fetch('http://localhost:3001/bookstore-books');
+    const json = await response.json();
+    console.log('Prueba getBooks', json);
+    return json
+}
+
 export default function Home({navigation}) {
-    const [ books, setBooks ] = useState(null)
+    // const [ books, setBooks ] = useState(null)
 
     function handleOnClick() {
         navigation.navigate('Library')
     }
 
+    // Tomar respuesta de la API con useState y fetch
+    /*
     useEffect(function() {
         const getBooks = async () => {
             const response = await fetch('http://localhost:3001/bookstore-books');
@@ -31,8 +46,15 @@ export default function Home({navigation}) {
         }
         getBooks();
     }, [])
+    */
 
-    console.log(books);
+    const { isLoading, status, data, error} = useQuery(GET_BOOKS, getBooks)
+    
+    console.log('useQuery getBooks', status, data);
+
+    // if (isLoading) return 'Loading...'
+ 
+    // if (error) return 'An error has occurred: ' + error.message
 
     return (
         <View>
@@ -47,7 +69,8 @@ export default function Home({navigation}) {
             <View>
                 {/* Agregar cabecera mediante */}
                 <FlatList
-                    data={books}
+                    data={status === 'success' ? data.books : []}
+                    // data={BOOK_LIST}
                     renderItem={ ({item}) => 
                         <BookListItem 
                             book={item}
@@ -58,6 +81,11 @@ export default function Home({navigation}) {
                     ListHeaderComponent={
                         <View>
                             <Text>Mi lista de libros:</Text>
+                        </View>
+                    }
+                    ListEmptyComponent = {
+                        <View>
+                            { status === 'loading' && <Text>Cargando libros...</Text> }
                         </View>
                     }
                 />
