@@ -11,8 +11,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 
 // Components
-import Home from './src/views/home';
-import Library from './src/views/library';
+import List from './src/views/books/list';
+import Detail from './src/views/books/detail';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,15 +34,15 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name='Home'
-            component={Home}
+            name='List'
+            component={List}
             options={
               {title: 'Inicio'}
             }
           />
           <Stack.Screen
-            name='Library'
-            component={Library}
+            name='Detail'
+            component={Detail}
           />
         </Stack.Navigator>
       </NavigationContainer>

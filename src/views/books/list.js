@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import { useQuery } from "react-query"
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import { Text, View, TouchableHighlight, FlatList } from "react-native";
-import BookListItem from "../components/Book/BookListItem";
+import BookListItem from "../../components/Book/BookListItem";
 
 const BOOK_LIST = [
     {
@@ -22,17 +22,17 @@ const BOOK_LIST = [
 const GET_BOOKS = 'GET_BOOKS'
 
 const getBooks = async () => {
-    const response = await fetch('http://localhost:3001/bookstore-books');
+    const response = await fetch('https://online-bookstore-api.vercel.app/bookstore-books');
     const json = await response.json();
     console.log('Prueba getBooks', json);
     return json
 }
 
-export default function Home({navigation}) {
+export default function List({navigation}) {
     // const [ books, setBooks ] = useState(null)
 
     function handleOnClick() {
-        navigation.navigate('Library')
+        navigation.navigate('Detail')
     }
 
     // Tomar respuesta de la API con useState y fetch
